@@ -9,5 +9,8 @@ jobs:
 
     steps:
       - name: check out repository code
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         uses: actions/checkout@v4
-      - run: echo "$(cat hello_world.txt)"
+        run: | 
+          echo "$(cat hello_world.txt)"
+          pwd
