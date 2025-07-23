@@ -11,6 +11,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: check out repository code
+        if: contains('integration,release', 'integration')
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: | 
           echo "$(cat hello_world.txt)"
