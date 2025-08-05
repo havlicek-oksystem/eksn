@@ -4,7 +4,7 @@ on: push
 
 jobs:
   hello-world-job:
-    runs-on: linux
+    runs-on: ubuntu-latest
 
     outputs:
       vystup: ${{ env.token }}
