@@ -21,3 +21,14 @@ jobs:
           pwd
         env:
           Test: ""
+
+    goodbye-world-job:
+
+      runs-on: ubuntu-latest
+      inputs:
+        variable: hello-world-job.vystup
+
+      steps:
+        - name: Test variables between jobs
+          run: |
+           echo $variable
