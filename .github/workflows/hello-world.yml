@@ -17,13 +17,13 @@ jobs:
           echo "token=$tokeniste" >> $GITHUB_ENV
 
   goodbye-world-job:
-    runs-on: ubuntu-latest
+    runs-on: linux
 
     needs: hello-world-job
 
     env:
       variable: ${{ needs.hello-world-job.outputs.vystup }}
-      
+
     steps:
       - name: test variable passing
         run: | 
