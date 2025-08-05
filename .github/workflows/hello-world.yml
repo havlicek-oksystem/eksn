@@ -25,8 +25,9 @@ jobs:
   goodbye-world-job:
 
     runs-on: ubuntu-latest
-    inputs:
-      variable: hello-world-job.outputs.Test
+    needs: hello-world-job
+    env:
+      variable: ${{ needs.hello-world-job.outputs.vystup }}
     steps:
       - name: test variable passing
         run: | 
