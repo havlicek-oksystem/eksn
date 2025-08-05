@@ -4,25 +4,26 @@ on: push
 
 jobs:
   hello-world-job:
-
     runs-on: windows
+
     outputs:
       vystup: ${{ env.token }}
+
     steps:
-      
       - name: Generate token
-        id: token_gen
         run: | 
           $tokeniste="hahahahaha"
           echo "$tokeniste"
           echo "token=$tokeniste" >> $GITHUB_ENV
 
   goodbye-world-job:
-
     runs-on: ubuntu-latest
+
     needs: hello-world-job
+
     env:
       variable: ${{ needs.hello-world-job.outputs.vystup }}
+      
     steps:
       - name: test variable passing
         run: | 
