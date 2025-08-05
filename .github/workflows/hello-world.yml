@@ -3,19 +3,27 @@ name: hello-world
 on: push
 
 jobs:
-  job1:
+  hello-world-job:
+
     runs-on: ubuntu-latest
     outputs:
-      api_key: ${{ steps.generate_key.outputs.key }}
+      vystup: ${{ steps.token_gen.outputs.token }}
     steps:
-      - id: generate_key
-        run: |
-          key="my-sensitive-api-key"
-          echo ":add-mask::$key"
-          echo "key=$key" >> "$GITHUB_OUTPUT"
-  job2:
+      
+      - name: Generate token
+        id: token_gen
+        run: | 
+          token="hahahahaha"
+          echo "::add-mask::$token"
+          echo "token=$token" >> GITHUB_OUTPUT
+
+  goodbye-world-job:
+
     runs-on: ubuntu-latest
-    needs: job1
+    needs: hello-world-job
+    env:
+      variable: ${{ needs.hello-world-job.outputs.vystup }}
     steps:
-      - run: |
-          echo "Using API key: ${{ needs.job1.outputs.api_key }}"
+      - name: test variable passing
+        run: | 
+          echo $variable
