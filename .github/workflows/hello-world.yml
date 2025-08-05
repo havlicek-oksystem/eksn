@@ -16,6 +16,7 @@ jobs:
           tokeniste="hahahahaha"
           echo "$tokeniste"
           echo "token=$tokeniste" >> $GITHUB_ENV
+          echo $GITHUB_ENV
 
   goodbye-world-job:
 
