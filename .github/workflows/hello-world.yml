@@ -15,7 +15,7 @@ jobs:
         run: | 
           tokeniste="hahahahaha"
           echo "$tokeniste"
-          echo "token=$tokeniste" >> GITHUB_ENV
+          echo "token=$tokeniste" >> $GITHUB_ENV
 
   goodbye-world-job:
 
