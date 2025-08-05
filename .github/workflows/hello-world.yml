@@ -17,7 +17,7 @@ jobs:
           echo "token=$tokeniste" >> $GITHUB_ENV
 
   goodbye-world-job:
-    runs-on: linux
+    runs-on: ubuntu-latest
 
     needs: hello-world-job
 
