@@ -7,20 +7,16 @@ jobs:
 
     runs-on: ubuntu-latest
     outputs:
-      vystup: ${{ env.Test }}
+      vystup: ${{ steps.token_gen.outputs.token }}
     steps:
-      - uses: actions/checkout@v4
       
-      - name: check out repository code
-        if: ${{ contains('integration,release', 'integration') }}
-        working-directory: ${{ env.WORKING_DIRECTORY }}
+      - name: Generate token
+        id: token_gen
         run: | 
           echo "$(cat hello_world.txt)"
-          export Test="hahahaha"
-          echo "Tak to je celkem $Test"
-          pwd
-        env:
-          Test: ""
+          token="hahahahaha"
+          echo ":add-mask::$token"
+          echo "token=$token" >> GITHUB_OUTPUT
 
   goodbye-world-job:
 
