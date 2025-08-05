@@ -7,15 +7,15 @@ jobs:
 
     runs-on: ubuntu-latest
     outputs:
-      vystup: ${{ steps.token_gen.outputs.token }}
+      vystup: ${{ env.token }}
     steps:
       
       - name: Generate token
         id: token_gen
         run: | 
-          token="hahahahaha"
-          echo "$token"
-          echo "token=$token" >> GITHUB_OUTPUT
+          tokeniste="hahahahaha"
+          echo "$tokeniste"
+          echo "token=$tokeniste" >> GITHUB_ENV
 
   goodbye-world-job:
 
