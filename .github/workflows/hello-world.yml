@@ -15,7 +15,7 @@ jobs:
         working-directory: ${{ env.WORKING_DIRECTORY }}
         run: | 
           echo "$(cat hello_world.txt)"
-          Test = "Hehe"
+          Test="Hehe"
           echo "Tak to je celkem $Test"
           pwd
         env:
