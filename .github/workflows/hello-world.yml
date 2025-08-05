@@ -22,21 +22,21 @@ jobs:
         env:
           Test: ""
 
-    goodbye-world-job:
+  goodbye-world-job:
 
-      runs-on: ubuntu-latest
-      outputs:
-        vystup: Test
-      steps:
-        - uses: actions/checkout@v4
-        
-        - name: check out repository code
-          if: ${{ contains('integration,release', 'integration') }}
-          working-directory: ${{ env.WORKING_DIRECTORY }}
-          run: | 
-            echo "$(cat hello_world.txt)"
-            Test="Hehe"
-            echo "Tak to je celkem $Test"
-            pwd
-          env:
-            Test: ""
+    runs-on: ubuntu-latest
+    outputs:
+      vystup: Test
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: check out repository code
+        if: ${{ contains('integration,release', 'integration') }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        run: | 
+          echo "$(cat hello_world.txt)"
+          Test="Hehe"
+          echo "Tak to je celkem $Test"
+          pwd
+        env:
+          Test: ""
