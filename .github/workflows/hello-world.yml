@@ -5,7 +5,7 @@ on: push
 jobs:
   hello-world-job:
 
-    runs-on: ubuntu-latest
+    runs-on: windows
     outputs:
       vystup: ${{ env.token }}
     steps:
@@ -13,7 +13,7 @@ jobs:
       - name: Generate token
         id: token_gen
         run: | 
-          tokeniste="hahahahaha"
+          $tokeniste="hahahahaha"
           echo "$tokeniste"
           echo "token=$tokeniste" >> $GITHUB_ENV
 
