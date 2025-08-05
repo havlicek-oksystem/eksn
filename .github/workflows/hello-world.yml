@@ -26,7 +26,7 @@ jobs:
 
     runs-on: ubuntu-latest
     inputs:
-      variable: Test
+      variable: hello-world-job.outputs.Test
     steps:
       - name: test variable passing
         run: | 
