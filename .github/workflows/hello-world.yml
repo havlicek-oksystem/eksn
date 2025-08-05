@@ -6,8 +6,6 @@ jobs:
   hello-world-job:
 
     runs-on: ubuntu-latest
-    outputs:
-      vystup: Test
 
     steps:
       - uses: actions/checkout@v4
@@ -22,14 +20,3 @@ jobs:
           pwd
         env:
           Test: ""
-
-    goodbye-world-job:
-
-      runs-on: ubuntu-latest
-      inputs:
-        variable: hello-world-job.vystup
-
-      steps:
-        - name: Test variables between jobs
-          run: |
-           echo $variable
