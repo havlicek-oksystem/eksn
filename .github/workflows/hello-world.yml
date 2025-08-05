@@ -6,7 +6,8 @@ jobs:
   hello-world-job:
 
     runs-on: ubuntu-latest
-
+    outputs:
+      vystup: Test
     steps:
       - uses: actions/checkout@v4
       
