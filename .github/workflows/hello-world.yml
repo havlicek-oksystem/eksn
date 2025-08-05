@@ -7,7 +7,7 @@ jobs:
 
     runs-on: ubuntu-latest
     outputs:
-      vystup: Test
+      vystup: ${{ env.Test }}
     steps:
       - uses: actions/checkout@v4
       
