@@ -25,10 +25,8 @@ jobs:
     goodbye-world-job:
 
       runs-on: ubuntu-latest
-      inputs:
-        vystup: hello-world-job.vystup
 
       steps:
         - name: Test variables between jobs
           run: |
-           echo $vystup
+           echo "blablabla"
