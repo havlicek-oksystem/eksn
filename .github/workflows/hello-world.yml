@@ -18,7 +18,7 @@ jobs:
           echo "tokenek=$tokeniste" >> $GITHUB_ENV
 
       - name: Set variable with token
-        shell: bash
+        shell: pwsh
         run: |
           echo "${{ env.tokenek }} v bashi"
           echo "token=${{ env.tokenek }}" >> $GITHUB_ENV
