@@ -17,6 +17,7 @@ jobs:
 
       - name: Set variable with token
         shell: pwsh
+        run: |
           echo "$tokeniste"
           echo "token=$tokeniste" >> $GITHUB_ENV
 
