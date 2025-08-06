@@ -11,9 +11,12 @@ jobs:
 
     steps:
       - name: Generate token
-        shell: powershell
+        shell: pwsh
         run: | 
           $tokeniste="hahahahaha"
+
+      - name: Set variable with token
+        shell: pwsh
           echo "$tokeniste"
           echo "token=$tokeniste" >> $GITHUB_ENV
 
