@@ -14,11 +14,12 @@ jobs:
         shell: pwsh
         run: | 
           $tokeniste="hahahahaha"
+          echo "$tokeniste v powershellu"
 
       - name: Set variable with token
-        shell: pwsh
+        shell: bash
         run: |
-          echo "$tokeniste"
+          echo "$tokeniste v bashi"
           echo "token=$tokeniste" >> $GITHUB_ENV
 
   goodbye-world-job:
