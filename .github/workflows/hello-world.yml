@@ -20,7 +20,7 @@ jobs:
       - name: Output Github access token
         shell: pwsh
         run: |
-          echo "Toto je ${{ access_token }}"
+          echo "Toto je ${{ env.access_token }}"
 
   backup:
     name: Backup
