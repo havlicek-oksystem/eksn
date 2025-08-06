@@ -11,6 +11,7 @@ jobs:
 
     steps:
       - name: Generate token
+        shell: bash
         run: | 
           $tokeniste="hahahahaha"
           echo "$tokeniste"
@@ -26,5 +27,6 @@ jobs:
 
     steps:
       - name: test variable passing
+        shell: bash
         run: | 
           echo $variable
