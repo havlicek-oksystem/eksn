@@ -16,6 +16,10 @@ jobs:
           $accessToken="testovatko"
           echo "$accessToken"
           echo "access_token=$accessToken" | Out-File -FilePath $env:GITHUB_ENV -Append
+
+      - name: Output Github access token
+        shell: pwsh
+        run: |
           echo "Toto je $env:GITHUB_ENV"
 
   backup:
