@@ -11,9 +11,9 @@ jobs:
 
     steps:
       - name: Generate token
-        shell: bash
+        shell: pwsh
         run: | 
-          tokeniste="hahahahaha"
+          $tokeniste="hahahahaha"
           echo "::add-mask::$tokeniste"
           echo "token=$tokeniste" >> $GITHUB_ENV
 
