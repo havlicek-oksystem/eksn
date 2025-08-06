@@ -14,7 +14,7 @@ jobs:
         run: | 
           $accessToken="testovatko"
           echo "$accessToken"
-          echo "access_token=accessToken" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "access_token=$accessToken" | Out-File -FilePath $env:GITHUB_ENV -Append
 
   backup:
     name: Backup
@@ -26,5 +26,6 @@ jobs:
     steps:
       - name: Backing up Github repository 
         run: |
+          echo ${{ needs.get-gh-token.outputs.access-token-gh }}
           echo "======="
           echo $variable
