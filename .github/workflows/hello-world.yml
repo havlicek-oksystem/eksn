@@ -4,21 +4,21 @@ on: push
 
 jobs:
   get-gh-token:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     outputs:
       access-token-gh: ${{ env.access_token }}
 
     steps:
       - name: Retrieve Github access token
-        shell: pwsh
+        shell: bash
         run: | 
-          $accessToken="testovatko"
+          accessToken="testovatko"
           echo "$accessToken"
-          echo "access_token=$accessToken" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "access_token=$accessToken" >> $GITHUB_ENV
 
       - name: Output Github access token
-        shell: pwsh
+        shell: bash
         run: |
           echo "Toto je ${{ env.access_token }}"
 
