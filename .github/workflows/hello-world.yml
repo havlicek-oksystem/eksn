@@ -15,12 +15,13 @@ jobs:
         run: | 
           $tokeniste="hahahahaha"
           echo "$tokeniste v powershellu"
+          echo "tokenek=$tokeniste" >> $GITHUB_ENV
 
       - name: Set variable with token
         shell: bash
         run: |
-          echo "$tokeniste v bashi"
-          echo "token=$tokeniste" >> $GITHUB_ENV
+          echo "${{ env.tokenek }} v bashi"
+          echo "token=${{ env.tokenek }}" >> $GITHUB_ENV
 
   goodbye-world-job:
     runs-on: ubuntu-latest
