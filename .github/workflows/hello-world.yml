@@ -4,29 +4,27 @@ on: push
 
 jobs:
   get-gh-token:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     outputs:
       access-token-gh: ${{ env.access_token }}
 
     steps:
       - name: Retrieve Github access token
-        shell: bash
         run: | 
-          accessToken="testovatko"
+          $accessToken="testovatko"
           echo "$accessToken"
           echo "access_token=$accessToken" >> $GITHUB_ENV
 
   backup:
     name: Backup
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     needs: get-gh-token
     env:
       variable: ${{ needs.get-gh-token.outputs.access-token-gh }}
 
     steps:
       - name: Backing up Github repository 
-        shell: bash
         run: |
           echo ${{ needs.get-gh-token.outputs.access-token-gh }}
           echo "======="
