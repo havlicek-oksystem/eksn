@@ -25,10 +25,6 @@ jobs:
       variable: ${{ needs.get-gh-token.outputs.access-token-gh }}
 
     steps:
-      - uses: actions/checkout@v4
-        with:
-          clean: true
-          
       - name: Backing up Github repository 
         shell: pwsh
         run: |
