@@ -28,4 +28,4 @@ jobs:
         run: |
           echo ${{ needs.get-gh-token.outputs.access-token-gh }}
           echo "======="
-          echo $variable
+          echo $env:variable
