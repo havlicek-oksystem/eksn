@@ -26,7 +26,6 @@ jobs:
       variable: ${{ needs.hello-world-job.outputs.vystup }}
 
     steps:
-      - shell: bash
       - name: test variable passing
         run: | 
           echo $variable
