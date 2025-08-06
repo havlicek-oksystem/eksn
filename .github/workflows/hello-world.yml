@@ -7,7 +7,7 @@ jobs:
     runs-on: windows-latest
 
     outputs:
-      access-token-gh: $${{ env.access_token }}
+      access-token-gh: ${{ env.access_token }}
 
     steps:
       - name: Retrieve Github access token
