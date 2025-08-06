@@ -13,7 +13,7 @@ jobs:
       - shell: bash
       - name: Generate token
         run: | 
-          tokeniste="hahahahaha"
+          $tokeniste="hahahahaha"
           echo "$tokeniste"
           echo "token=$tokeniste" >> $GITHUB_ENV
 
@@ -26,6 +26,7 @@ jobs:
       variable: ${{ needs.hello-world-job.outputs.vystup }}
 
     steps:
+      - shell: bash
       - name: test variable passing
         run: | 
           echo $variable
