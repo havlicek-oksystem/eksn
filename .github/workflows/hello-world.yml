@@ -14,7 +14,7 @@ jobs:
         shell: bash
         run: | 
           tokeniste="hahahahaha"
-          echo "$tokeniste"
+          echo "::add-mask::$tokeniste"
           echo "token=$tokeniste" >> $GITHUB_ENV
 
   goodbye-world-job:
