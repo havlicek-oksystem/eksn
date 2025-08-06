@@ -13,7 +13,7 @@ jobs:
       - name: Generate token
         shell: bash
         run: | 
-          $tokeniste="hahahahaha"
+          tokeniste="hahahahaha"
           echo "$tokeniste"
           echo "token=$tokeniste" >> $GITHUB_ENV
 
