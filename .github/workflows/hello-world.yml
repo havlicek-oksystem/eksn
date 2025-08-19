@@ -22,12 +22,13 @@ jobs:
         run: |
           for blbost in ${{ steps.token.outputs.pole1 }}; do
             if ! printf '%s\n' ${{ steps.token.outputs.pole2 }} | grep -q "^$blbost$"; then
-              echo "$blbost neni v pole2" >> GITHUB_OUTPUT
+              echo -e "\n$blbost neni v pole2" >> output
             fi
           done
+          echo "output=$(cat output)" >> $GITHUB_OUTPUT
 
       - name: Repository report
         shell: bash
         if: ${{ !steps.test.outputs == '' }}
         run: |
-          echo ${{ steps.test.outputs }}
+          echo ${{ steps.test.outputs.output }}
