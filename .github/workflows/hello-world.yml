@@ -11,14 +11,16 @@ jobs:
         id: token
         shell: bash
         run: | 
-          pole=(blbost1 blbost2 blbost3)
-          echo "array=${pole[@]}" >> $GITHUB_OUTPUT
+          pole1=(blbost1 blbost2 blbost3)
+          pole2=(blbost1 blbost2)
+          echo "pole1=${pole1[@]}" >> $GITHUB_OUTPUT
+          echo "pole2=${pole2[@]}" >> $GITHUB_OUTPUT
 
       - name: Output Github access token
         shell: bash
         run: |
-          for blbost in "${{ steps.token.outputs.array }}"; do
-            if [ $blbost == "blbost1" ]; then
-              echo "Toto je $blbost"
+          for blbost in ${{ steps.token.outputs.pole1 }}; do
+            if ! printf '%s\n' $pole2 | grep -q "^$blbost$"; then
+              echo "$blbost neni v pole2"
             fi
           done
