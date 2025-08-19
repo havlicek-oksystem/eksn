@@ -31,4 +31,4 @@ jobs:
         shell: bash
         if: ${{ !steps.test.outputs == '' }}
         run: |
-          echo ${{ steps.test.outputs.output }}
+          echo -e ${{ steps.test.outputs.output }}
