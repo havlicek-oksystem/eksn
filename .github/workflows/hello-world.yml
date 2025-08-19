@@ -18,7 +18,7 @@ jobs:
         shell: bash
         run: |
           for blbost in ${{ steps.token.outputs.array }}; do
-            if [ $blbost == "blbost1"]; then
+            if [ $blbost == "blbost1" ]; then
               echo "Toto je $blbost"
             fi
           done
