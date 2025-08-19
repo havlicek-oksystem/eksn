@@ -11,16 +11,23 @@ jobs:
         id: token
         shell: bash
         run: | 
-          pole1=(blbost1 blbost2 blbost3)
+          pole1=(blbost1 blbost2 blbost3 blbost4)
           pole2=(blbost1 blbost2)
           echo "pole1=${pole1[@]}" >> $GITHUB_OUTPUT
           echo "pole2=${pole2[@]}" >> $GITHUB_OUTPUT
 
       - name: Output Github access token
+        id: test
         shell: bash
         run: |
           for blbost in ${{ steps.token.outputs.pole1 }}; do
             if ! printf '%s\n' ${{ steps.token.outputs.pole2 }} | grep -q "^$blbost$"; then
-              echo "$blbost neni v pole2"
+              echo "$blbost neni v pole2" >> GITHUB_OUTPUT
             fi
           done
+
+      - name: Repository report
+        shell: bash
+        if: ${{ !steps.test.outputs == "" }}
+        run: |
+          echo ${{ steps.test.outputs }}
