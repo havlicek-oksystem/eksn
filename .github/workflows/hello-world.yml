@@ -28,7 +28,9 @@ jobs:
           echo "======"
           cat output.log
           echo "output<<EOF" >> $GITHUB_OUTPUT
-          echo "$(cat output.log)" >> $GITHUB_OUTPUT
+          echo "test1" >> $GITHUB_OUTPUT
+          echo "test2" >> $GITHUB_OUTPUT
+          echo "test3" >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
 
       - name: Repository report
