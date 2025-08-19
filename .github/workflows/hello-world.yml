@@ -22,7 +22,7 @@ jobs:
         run: |
           for blbost in ${{ steps.token.outputs.pole1 }}; do
             if ! printf '%s\n' ${{ steps.token.outputs.pole2 }} | grep -q "^$blbost$"; then
-              echo -e "\n$blbost neni v pole2" >> output.log
+              echo "$blbost neni v pole2" >> output.log
             fi
           done
           cat output.log
