@@ -6,31 +6,15 @@ jobs:
   get-gh-token:
     runs-on: ubuntu-latest
 
-    outputs:
-      access-token-gh: ${{ env.access_token }}
-
     steps:
       - name: Retrieve Github access token
+        id: token
         shell: bash
         run: | 
-          accessToken="testovatko"
-          echo "$accessToken"
-          echo "access_token=$accessToken" >> $GITHUB_ENV
+          pole=("blbost1" "blbost2" "blbost3")
+          echo "array=${pole[@]}" >> $GITHUB_OUTPUT
 
       - name: Output Github access token
         shell: bash
         run: |
-          echo "Toto je ${{ env.access_token }}"
-
-  backup:
-    name: Backup
-    runs-on: ubuntu-latest
-    needs: get-gh-token
-    env:
-      variable: ${{ needs.get-gh-token.outputs.access-token-gh }}
-
-    steps:
-      - name: Backing up Github repository 
-        shell: bash
-        run: |
-          echo $variable
+          echo ${{ steps.token.outputs.array }}
