@@ -17,7 +17,7 @@ jobs:
       - name: Output Github access token
         shell: bash
         run: |
-          for blbost in ${{ steps.token.outputs.array }}; do
+          for blbost in "${{ steps.token.outputs.array }}"; do
             if [ $blbost == "blbost1" ]; then
               echo "Toto je $blbost"
             fi
