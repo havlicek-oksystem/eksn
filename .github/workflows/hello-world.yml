@@ -25,6 +25,7 @@ jobs:
               echo "$blbost neni v pole2" >> output.log
             fi
           done
+          echo "======"
           cat output.log
           echo "output=test" >> $GITHUB_OUTPUT
 
