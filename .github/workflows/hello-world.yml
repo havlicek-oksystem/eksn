@@ -28,6 +28,6 @@ jobs:
 
       - name: Repository report
         shell: bash
-        if: ${{ !steps.test.outputs == "" }}
+        if: ${{ !steps.test.outputs == '' }}
         run: |
           echo ${{ steps.test.outputs }}
