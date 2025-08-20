@@ -36,7 +36,7 @@ jobs:
 
   gitleaks_bypass:
     runs-on: ubuntu-bypass
-    if: github.event.issue.pull_request && github.event_name == 'issue_comment'
+    if: github.event_name == 'issue_comment'
     steps:
       - name: Bypass
         shell: bash
