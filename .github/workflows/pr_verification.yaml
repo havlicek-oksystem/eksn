@@ -5,16 +5,9 @@ on:
     branches:
       - 'main'
 
-  issue_comment:
-    types: created
-    branches:
-      - 'main'
-
-
 jobs:
   gitleaks_scan:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
     steps:
       - name: Comment on PR
         uses: actions/github-script@v7
@@ -32,14 +25,3 @@ jobs:
         run: |
           echo "Tento run byl spusteny pomoci pull requestu a tudiz ho ukoncuji s neuspechem"
           exit 1
-
-  gitleaks_bypass:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'issue_comment'
-    steps:
-      - name: Bypass
-        shell: bash
-        run: |
-          echo "Tento run byl spusteny pomoci komentare v pull requestu, ktery ma delat check bypass a tudiz ho ukoncuji s uspechem"
-          exit 0
-
