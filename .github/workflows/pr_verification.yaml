@@ -2,7 +2,6 @@ name: PR verification GitLeaks
 
 on:
   pull_request:
-    types: created
     branches:
       - 'main'
 
@@ -36,7 +35,7 @@ jobs:
 
   gitleaks_bypass:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.event_name == 'issue_comment'
+    if: github.event_name == 'issue_comment'
     steps:
       - name: Bypass
         shell: bash
