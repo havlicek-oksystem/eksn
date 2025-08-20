@@ -14,7 +14,7 @@ on:
 
 jobs:
   gitleaks_scan:
-    runs-on: k8s-runner-set
+    runs-on: ubuntu-bypass
     if: github.event_name == 'pull_request'
     steps:
       - name: Comment on PR
@@ -35,7 +35,7 @@ jobs:
           exit 1
 
   gitleaks_bypass:
-    runs-on: k8s-runner-set
+    runs-on: ubuntu-bypass
     if: github.event.issue.pull_request && github.event_name == 'issue_comment'
     steps:
       - name: Bypass
