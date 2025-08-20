@@ -2,18 +2,24 @@ name: PR verification GitLeaks
 
 on:
   pull_request:
+    types: created
     branches:
       - 'main'
 
-jobs:
-  comment:
-    runs-on: ubuntu-latest
+  issue_comment:
+    types: created
+    branches:
+      - 'main'
 
+
+jobs:
+  gitleaks_scan:
+    runs-on: k8s-runner-set
+    if: github.event_name == 'pull_request'
     steps:
       - name: Comment on PR
         uses: actions/github-script@v7
         with:
-          github-token: ${{ github.token }}
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
@@ -21,3 +27,20 @@ jobs:
               repo: context.repo.repo,
               body: 'Tento komentar byl vytvoren automaticky v ramci testu komentovani na PR.'
             })
+
+      - name: Output event
+        shell: bash
+        run: |
+          echo "Tento run byl spusteny pomoci pull requestu a tudiz ho ukoncuji s neuspechem"
+          exit 1
+
+  gitleaks_bypass:
+    runs-on: k8s-runner-set
+    if: github.event.issue.pull_request && github.event_name == 'issue_comment'
+    steps:
+      - name: Bypass
+        shell: bash
+        run: |
+          echo "Tento run byl spusteny pomoci komentare v pull requestu, ktery ma delat check bypass a tudiz ho ukoncuji s uspechem"
+          exit 0
+
