@@ -8,10 +8,12 @@ on:
 jobs:
   gitleaks_scan:
     runs-on: ubuntu-latest
+    permissions: 
     steps:
       - name: Comment on PR
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.KLICEK }}
           script: |
             github.rest.issues.createComment({
               issue_number: context.issue.number,
