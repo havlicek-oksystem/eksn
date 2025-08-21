@@ -16,7 +16,7 @@ jobs:
         run: |
           echo "Gitleaks result:" >> $GITHUB_STEP_SUMMARY
           echo "Nalezeleno nula secrets leaks." >> $GITHUB_STEP_SUMMARY
-          echo "Tento komantar byl vytvoren automaticky v ramci Gitleaks scanu na PR." >> GITHUB_STEP_SUMMARY
+          echo "Tento komantar byl vytvoren automaticky v ramci Gitleaks scanu na PR." >> $GITHUB_STEP_SUMMARY
           echo "========"
           echo $GITHUB_STEP_SUMMARY
 
