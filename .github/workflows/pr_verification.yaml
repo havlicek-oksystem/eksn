@@ -51,8 +51,8 @@ jobs:
           commentBody=""
           for (( i=1; i < $(cat gitleaks.files | wc -l)+1; i++))
           do
-            commentBody+=echo "$(sed -n ${i}p gitleaks.files), line $(sed -n ${i}p gitleaks.lines): \
-            $(sed -n ${i}p gitleaks.emails) $(sed -n ${i}p gitleaks.commits) <a href=$(sed -n ${i}p gitleaks.links)>Odkaz</a>\n"
+            commentBody+=$(echo "$(sed -n ${i}p gitleaks.files), line $(sed -n ${i}p gitleaks.lines): \
+            $(sed -n ${i}p gitleaks.emails) $(sed -n ${i}p gitleaks.commits) <a href=$(sed -n ${i}p gitleaks.links)>Odkaz</a>\n")
           done
           echo "========"
           echo $commentBody"
