@@ -33,7 +33,7 @@ jobs:
         run: |
           #./gitleaks git repo -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
           ./gitleaks git repo -v --log-opts="main.." --exit-code 0 > gitleaks.log
-          commentBody="### Gitleaks scan ###"
+          commentBody="### Gitleaks scan ###\n"
           if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
             commentBody+="⛔ Gitleaks scan našel v pull requestu následující secrets:\n"
             grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
