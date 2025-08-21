@@ -27,6 +27,7 @@ jobs:
           gitleaksURL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep "browser_download_url.*linux_x64" | cut -d : -f 2,3 | tr -d \")
           curl -L $gitleaksURL | tar xz
           pwd
+          cd repo
           echo "=========="
           git status
           echo "=========="
