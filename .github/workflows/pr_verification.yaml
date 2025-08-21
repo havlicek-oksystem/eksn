@@ -37,8 +37,8 @@ jobs:
         id: scan
         shell: bash
         run: |
-          ./gitleaks git repo -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
-          #./gitleaks git repo -v --log-opts="main.." --exit-code 0 > gitleaks.log
+          #./gitleaks git repo -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
+          ./gitleaks git repo -v --log-opts="main.." --exit-code 0 > gitleaks.log
           if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
             grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
             grep "Line: " gitleaks.log | awk '{print $2}' > gitleaks.lines
@@ -55,7 +55,7 @@ jobs:
             $(sed -n ${i}p gitleaks.emails) $(sed -n ${i}p gitleaks.commits) <a href=$(sed -n ${i}p gitleaks.links)>Odkaz</a>\n" >> $commentBody
           done
           echo "========"
-          echo $commentBody
+          echo $commentBody"
           echo "commentBody=$commentBody" >> $GITHUB_OUTPUT
 
 
