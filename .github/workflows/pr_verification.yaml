@@ -2,32 +2,41 @@ name: PR verification GitLeaks
 
 on:
   pull_request:
-    types: 'opened'
+    types: created
     branches:
       - 'main'
 
 jobs:
   gitleaks_scan:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-bypass
+    if: github.event_name == 'pull_request'
     steps:
-      - name: Gitleaks Scan
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Download GitLeaks
         shell: bash
         run: |
-          echo "Gitleaks result:" >> output
-          echo "Nalezeleno nula secrets leaks." >> output
-          echo "Tento komantar byl vytvoren automaticky v ramci Gitleaks scanu na PR." >> output
+          gitleaksURL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep "browser_download_url.*linux_x64" | cut -d : -f 2,3 | tr -d \")
+          curl -L $gitleaksURL | tar xz
 
-      - name: Comment on PR
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.KLICEK }}
-          script: |
-            fetch("output");
-            console.log(title);
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Tento komentar byl vytvoren automaticky v ramci testu komentovani na PR.'
-            })
+      - name: Scan
+        shell: bash
+        run: |
+          gitleaks git . -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
+          if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
+            grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
+            grep "Line: " gitleaks.log | awk '{print $2}' > gitleaks.lines
+            trap $(grep "Email: " gitleaks.log | awk '{print $2}' > gitleaks.emails) EXIT
+            trap $(grep "Commit: " gitleaks.log | awk '{print $2}' > gitleaks.commits) EXIT
+            trap $(grep "Link: " gitleaks.log | awk '{print $2}' > gitleaks.links) EXIT
+          else
+            touch gitleaks.files gitleaks.lines gitleaks.emails gitleaks.commits gitleaks.links
+          fi
+          for (( i=1; i < $(cat gitleaks.files | wc -l)+1; i++))
+          do
+            echo "$(sed -n ${i}p gitleaks.files), line $(sed -n ${i}p gitleaks.lines): \
+            (sed -n ${i}p gitleaks.emails) $(sed -n ${i}p gitleaks.commits) <a href=$(sed -n ${i}p gitleaks.links)>Odkaz</a><br>" >> gitleaks.summary
+          done
+          echo "========"
+          cat gitleaks.summary
