@@ -23,7 +23,7 @@ jobs:
           echo "=========="
           git status
           echo "=========="
-          ls
+          ls -la
 
       - name: Scan
         shell: bash
