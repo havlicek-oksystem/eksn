@@ -2,7 +2,7 @@ name: hello-world
 
 on:
   schedule:
-    - cron: '29 6 * * *''
+    - cron: '30 6 * * *'
 
 jobs:
   get-gh-token:
