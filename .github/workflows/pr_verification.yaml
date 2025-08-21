@@ -15,7 +15,6 @@ jobs:
         id: branch
         shell: bash
         run: |
-          echo "${{ github.event }}"
           branch=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.KLICEK }}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/havlicek-oksystem/eksn/pulls/${{ github.event.pull_request.number }} | jq -r '.head.ref')
           echo "Branch je $branch"
           git clone https://github.com/${{ github.repository }} repo
@@ -27,12 +26,6 @@ jobs:
         run: |
           gitleaksURL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep "browser_download_url.*linux_x64" | cut -d : -f 2,3 | tr -d \")
           curl -L $gitleaksURL | tar xz
-          cd repo
-          pwd
-          echo "=========="
-          git status
-          echo "=========="
-          ls -la
 
       - name: Scan
         id: scan
@@ -40,22 +33,21 @@ jobs:
         run: |
           #./gitleaks git repo -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
           ./gitleaks git repo -v --log-opts="main.." --exit-code 0 > gitleaks.log
+          commentBody="### Gitleaks scan ###"
           if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
+            commentBody+="⛔ Gitleaks scan našel v pull requestu následující secrets:\n"
             grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
             grep "Line: " gitleaks.log | awk '{print $2}' > gitleaks.lines
             trap $(grep "Email: " gitleaks.log | awk '{print $2}' > gitleaks.emails) EXIT
             trap $(grep "Commit: " gitleaks.log | awk '{print $2}' > gitleaks.commits) EXIT
-            trap $(grep "Link: " gitleaks.log | awk '{print $2}' > gitleaks.links) EXIT
           else
-            touch gitleaks.files gitleaks.lines gitleaks.emails gitleaks.commits gitleaks.links
+            commentBody="✅ Gitleaks scan nenašel v pull requestu žádné secrets.\n"
+            touch gitleaks.files gitleaks.lines gitleaks.emails gitleaks.commits
           fi
-          commentBody=""
           for (( i=1; i < $(cat gitleaks.files | wc -l)+1; i++))
           do
             commentBody+=$(echo "$(sed -n ${i}p gitleaks.files), line $(sed -n ${i}p gitleaks.lines): \
-            $(sed -n ${i}p gitleaks.emails) $(sed -n ${i}p gitleaks.commits) <a href=$(sed -n ${i}p gitleaks.links)>Odkaz</a>\n")
+            $(sed -n ${i}p gitleaks.emails) $(sed -n ${i}p gitleaks.commits)
           done
-          echo "========"
-          echo $commentBody
           curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.KLICEK }}" \
           -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/havlicek-oksystem/eksn/issues/${{ github.event.pull_request.number }}/comments -d '{"body":"'"$commentBody"'"}'
