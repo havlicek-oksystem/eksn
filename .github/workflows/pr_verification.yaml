@@ -34,10 +34,11 @@ jobs:
           ls -la
 
       - name: Scan
+        id: scan
         shell: bash
         run: |
-          #./gitleaks git . -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
-          ./gitleaks git repo -v --log-opts="main.." --exit-code 0 > gitleaks.log
+          ./gitleaks git repo -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
+          #./gitleaks git repo -v --log-opts="main.." --exit-code 0 > gitleaks.log
           if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
             grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
             grep "Line: " gitleaks.log | awk '{print $2}' > gitleaks.lines
@@ -47,10 +48,19 @@ jobs:
           else
             touch gitleaks.files gitleaks.lines gitleaks.emails gitleaks.commits gitleaks.links
           fi
+          commentBody=""
           for (( i=1; i < $(cat gitleaks.files | wc -l)+1; i++))
           do
             echo "$(sed -n ${i}p gitleaks.files), line $(sed -n ${i}p gitleaks.lines): \
-            $(sed -n ${i}p gitleaks.emails) $(sed -n ${i}p gitleaks.commits) <a href=$(sed -n ${i}p gitleaks.links)>Odkaz</a><br>" >> gitleaks.summary
+            $(sed -n ${i}p gitleaks.emails) $(sed -n ${i}p gitleaks.commits) <a href=$(sed -n ${i}p gitleaks.links)>Odkaz</a>\n" >> $commentBody
           done
           echo "========"
-          cat gitleaks.summary
+          echo $commentBody
+          echo "commentBody=$commentBody" >> $GITHUB_OUTPUT
+
+
+      - name: Comment on PR
+        shell: bash
+        run: |
+         curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.KLICEK }}" \
+         -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/havlicek-oksystem/eksn/issues/18/comments -d '{"body":"'"${{ steps.output.scan.bodyComment }}"'"}
