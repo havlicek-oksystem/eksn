@@ -1,9 +1,6 @@
 name: hello-world
 
 on:
-  schedule:
-    - cron: '*/6 * * * *'
-
   workflow_dispatch:
 
 jobs:
