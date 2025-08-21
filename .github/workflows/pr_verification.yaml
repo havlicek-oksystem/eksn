@@ -37,7 +37,7 @@ jobs:
         shell: bash
         run: |
           #./gitleaks git . -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
-          ./gitleaks git . -v --log-opts="main.." --exit-code 0 > gitleaks.log
+          ./gitleaks git repo -v --log-opts="main.." --exit-code 0 > gitleaks.log
           if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
             grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
             grep "Line: " gitleaks.log | awk '{print $2}' > gitleaks.lines
