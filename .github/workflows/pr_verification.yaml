@@ -11,8 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
+      - name: Get name of the PR branch
+        id: branch
+        shell: bash
+        run: |
+          branch=$(curl -L -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.KLICEK }}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/havlicek-oksystem/eksn/pulls/28 | jq -r '.head.ref')
+          echo "branch=$branch" >> $GITHUB_OUTPUT
+
       - name: Checkout
         uses: actions/checkout@v5
+        with:
+          ref: '${{ steps.outputs.branch.branch }}'
 
       - name: Download GitLeaks
         shell: bash
@@ -30,7 +39,7 @@ jobs:
       - name: Scan
         shell: bash
         run: |
-          #./gitleaks git . -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
+          ./gitleaks git . -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
           ./gitleaks git . -v --log-opts="main.." --exit-code 0 > gitleaks.log
           if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
             grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
