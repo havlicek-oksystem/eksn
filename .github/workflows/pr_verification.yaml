@@ -14,18 +14,17 @@ jobs:
       - name: Gitleaks Scan
         shell: bash
         run: |
-          echo "Gitleaks result:" >> $GITHUB_STEP_SUMMARY
-          echo "Nalezeleno nula secrets leaks." >> $GITHUB_STEP_SUMMARY
-          echo "Tento komantar byl vytvoren automaticky v ramci Gitleaks scanu na PR." >> $GITHUB_STEP_SUMMARY
-          echo "========"
-          echo $GITHUB_STEP_SUMMARY
+          echo "Gitleaks result:" >> output
+          echo "Nalezeleno nula secrets leaks." >> output
+          echo "Tento komantar byl vytvoren automaticky v ramci Gitleaks scanu na PR." >> output
 
       - name: Comment on PR
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.KLICEK }}
           script: |
-            echo "Zkouska bashe z github-scriptu"
+            fetch("output");
+            console.log(title);
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
