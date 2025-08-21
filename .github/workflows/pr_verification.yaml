@@ -21,6 +21,8 @@ jobs:
           curl -L $gitleaksURL | tar xz
           pwd
           echo "=========="
+          git status
+          echo "=========="
           ls
 
       - name: Scan
