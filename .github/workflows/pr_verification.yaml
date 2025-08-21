@@ -25,6 +25,7 @@ jobs:
         with:
           github-token: ${{ secrets.KLICEK }}
           script: |
+            echo "Zkouska bashe z github-scriptu"
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
