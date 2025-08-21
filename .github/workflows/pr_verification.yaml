@@ -2,7 +2,7 @@ name: PR verification GitLeaks
 
 on:
   pull_request:
-    types: created
+    types: opened
     branches:
       - 'main'
 
