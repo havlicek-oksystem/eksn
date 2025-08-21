@@ -55,4 +55,4 @@ jobs:
             $(sed -n ${i}p gitleaks.emails) $(sed -n ${i}p gitleaks.commits) <a href=$(sed -n ${i}p gitleaks.links)>Odkaz</a>\n")
           done
           echo "========"
-          echo $commentBody"
+          echo $commentBody
