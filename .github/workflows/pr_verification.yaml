@@ -21,7 +21,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
         with:
-          ref: '${{ steps.outputs.branch.branch }}'
+          ref: ${{ steps.outputs.branch.branch }}
 
       - name: Download GitLeaks
         shell: bash
