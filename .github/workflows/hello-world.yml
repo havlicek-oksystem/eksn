@@ -11,8 +11,3 @@ jobs:
       - name: Get URL of the run
         id: get-url
         uses: havlicek-oksystem/eksn/.github/actions/get-run-name@main
-
-      - name: Output run URL
-        shell: bash
-        run: | 
-          echo "${{ steps.get-url.outputs.url }}"
