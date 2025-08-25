@@ -6,10 +6,14 @@ on:
     branches:
       - 'main'
 
+  issue_comment:
+    types: 'created'
+    branches:
+      - 'main'
+
 jobs:
   gitleaks_scan:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
     steps:
       - name: Checkout PR branch
         id: branch
@@ -31,8 +35,8 @@ jobs:
         id: scan
         shell: bash
         run: |
-          #./gitleaks git repo -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
-          ./gitleaks git repo -v --log-opts="main.." --exit-code 0 > gitleaks.log
+          cd repo
+          ../gitleaks git . -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
           if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
             commentBody="### Gitleaks scan ⛔ ###\nGitleaks scan našel v pull requestu následující secrets:\n"
             grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
