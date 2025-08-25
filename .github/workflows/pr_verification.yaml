@@ -18,7 +18,7 @@ jobs:
           script: |
             const prBranch = github.event.pull_request.head.ref;
             console.log('Pull request branch:', prBranch);
-            return prBranch;        
+            core.setOutput('pr_branch', prBranch);       
 
       - name: Echo PR branch
         run: |
