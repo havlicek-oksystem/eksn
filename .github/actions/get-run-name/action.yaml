@@ -1,0 +1,12 @@
+name: Get URL address of current Github Action run
+
+runs:
+  using: composite
+
+  steps:
+    - name: Get URL
+      id: url-get
+      shell: bash
+      run: |
+        #echo "url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> $GITHUB_OUTPUT
+        echo "Test URL run get"

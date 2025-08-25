@@ -8,6 +8,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get URL of the run
+        uses: havlicek-oksystem/eksn/.github/actions/get-run-name@main
+
+
       - name: Retrieve Github access token
         id: token
         shell: bash
