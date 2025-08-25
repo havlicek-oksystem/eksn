@@ -8,5 +8,5 @@ runs:
       id: url-get
       shell: bash
       run: |
-        #echo "url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> $GITHUB_OUTPUT
-        echo "Test URL run get"
+        echo "url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> $GITHUB_OUTPUT
+        echo "${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
