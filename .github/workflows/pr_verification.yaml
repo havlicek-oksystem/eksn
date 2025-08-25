@@ -14,7 +14,6 @@ on:
 jobs:
   gitleaks_scan:
     runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
     steps:
       - name: Checkout PR branch
         id: branch
@@ -31,13 +30,16 @@ jobs:
         run: |
           gitleaksURL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep "browser_download_url.*linux_x64" | cut -d : -f 2,3 | tr -d \")
           curl -L $gitleaksURL | tar xz
+          echo "========="
+          echo "${{ github.event_name }}"
+          echo "${{ github.event.issue.pull_request }}"
 
       - name: Scan
         id: scan
         shell: bash
         run: |
-          #./gitleaks git repo -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
-          ./gitleaks git repo -v --log-opts="main.." --exit-code 0 > gitleaks.log
+          cd repo
+          ../gitleaks git repo -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
           if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
             commentBody="### Gitleaks scan ⛔ ###\nGitleaks scan našel v pull requestu následující secrets:\n"
             grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
@@ -63,13 +65,3 @@ jobs:
           else
             exit 1
           fi
-
-
-  gitleaks_bypass:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'issue_comment' && ${{ github.event.issue.pull_request }}
-    steps:
-      - name: Comment
-        shell: bash
-        run: |
-          echo "Run byl spusten komentarem na PR."
