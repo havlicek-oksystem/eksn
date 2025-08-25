@@ -10,18 +10,8 @@ jobs:
   gitleaks_scan:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout PR branch test
-        id: get_branch
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const prBranch = github.event.pull_request.head.ref;
-            console.log('Pull request branch:', prBranch);
-            core.setOutput('pr_branch', prBranch);       
-
-      - name: Echo PR branch
-        run: |
-          echo "PR branch je: ${{ steps.get_branch.outputs.result }}"
+      - name: Test
+        run: echo "${{ toJson(github.event) }}"     
 
 #      - name: Checkout PR branch
 #        id: branch
