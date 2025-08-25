@@ -66,7 +66,7 @@ jobs:
 
   gitleaks_bypass:
     runs-on: ubuntu-latest
-    if: github.event_name == 'issue_comment'
+    if: github.event_name == 'issue_comment' && ${{ github.event.issue.pull_request }}
     steps:
       run: |
-        echo "Run byl spusten komentarem."
+        echo "Run byl spusten komentarem na PR."
