@@ -2,7 +2,7 @@ name: Get URL address of current Github Action run
 
 outputs:
   url:
-    value: "test"
+    value: ${{ steps.url-get.outputs.url }}
 
 runs:
   using: composite
