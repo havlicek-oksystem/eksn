@@ -31,15 +31,15 @@ jobs:
           gitleaksURL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep "browser_download_url.*linux_x64" | cut -d : -f 2,3 | tr -d \")
           curl -L $gitleaksURL | tar xz
           echo "========="
-          echo "${{ github.event_name }}"
-          echo "${{ github.event.issue.pull_request }}"
+          echo "test1 ${{ github.event_name }}"
+          echo "test2 ${{ github.event.issue.pull_request }}"
 
       - name: Scan
         id: scan
         shell: bash
         run: |
           cd repo
-          ../gitleaks git repo -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
+          ../gitleaks git . -v --log-opts="$(git remote show origin | sed -n '/HEAD branch/s/.*: //p').." --exit-code 0 > gitleaks.log
           if [ $(cat gitleaks.log | wc -l) -ne 0 ]; then
             commentBody="### Gitleaks scan ⛔ ###\nGitleaks scan našel v pull requestu následující secrets:\n"
             grep "File: " gitleaks.log | awk '{print $2}' > gitleaks.files
