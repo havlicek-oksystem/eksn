@@ -15,4 +15,4 @@ jobs:
       - name: Output run URL
         shell: bash
         run: | 
-          echo "${{ steps.get-url.outputs.url-get }}"
+          echo "${{ steps.get-url.outputs.url }}"
