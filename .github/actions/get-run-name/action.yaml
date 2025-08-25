@@ -12,3 +12,9 @@ runs:
       shell: bash
       run: |
         echo "url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> $GITHUB_OUTPUT
+
+    - name: Test
+      id: test
+      shell: bash
+      run: |
+        echo "Zkousim ${{ steps.url-get.outputs.url }}"
