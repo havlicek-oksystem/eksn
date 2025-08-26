@@ -30,6 +30,9 @@ jobs:
         run: |
           gitleaksURL=$(curl -s https://api.github.com/repos/gitleaks/gitleaks/releases/latest | grep "browser_download_url.*linux_x64" | cut -d : -f 2,3 | tr -d \")
           curl -L $gitleaksURL | tar xz
+          echo "========="
+          echo "test1 ${{ github.event_name }}"
+          echo "test2 ${{ github.event.issue.pull_request }}"
 
       - name: Scan
         id: scan
