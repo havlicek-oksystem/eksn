@@ -2,6 +2,8 @@ name: hello-world
 
 on:
   pull_request:
+    branches:
+      - 'main'
 
 jobs:
   get-gh-token:
