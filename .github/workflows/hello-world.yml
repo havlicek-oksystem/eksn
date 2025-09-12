@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Create release branch in Github
         run: |
-          if ! [[ ${{ github.ref_name }} =~ ^release/[0-9]+\.[0-9]+(\.[0-9]+)?$ && ]]; then
+          if ! [[ ${{ github.ref_name }} =~ ^release/[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
             echo 'Je release, ale název se neshoduje s požadovaným formátem "release/x.y[.z]"'
             exit -1
           else
