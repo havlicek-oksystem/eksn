@@ -6,6 +6,9 @@ on:
       - 'main'
       - 'release/**'
 
+    tags:
+      - 'release/**'
+
 
 jobs:
   get-gh-token:
