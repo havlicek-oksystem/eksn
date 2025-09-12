@@ -1,21 +1,24 @@
 name: hello-world
 
 on:
-  pull_request:
-    branches:
-      - 'main'
+  push:
+    branches: 'main'
 
 jobs:
   get-gh-token:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Get URL of the run
-        id: get-url
-        uses: havlicek-oksystem/eksn/.github/actions/get-run-name@main
+      - name: Create release branch in Github
+        run: |
+          if ! [[ ${{ github.ref_name }} =~ ^release/[0-9]+\.[0-9]+(\.[0-9]+)?$ && ]]; then
+            echo 'Je release, ale název se neshoduje s požadovaným formátem "release/x.y[.z]"'
+            exit -1
+          else
+            echo "Zakladam release branch ${{ github.ref_name }} v Githubu."
+          fi
 
-      - name: Output run URL
-        shell: bash
-        if: github.event_name == 'pull_request'
-        run: | 
-          echo "Toto je pull request"
+          echo "ref_name: ${{ github.ref_name }}, sha: ${{ github.sha }}"
+
+          curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.KLICEK }}" \ -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/repos/${{ github.repository }}/git/refs -d '{"ref":"refs/heads/${{ github.ref_name }}","sha":"${{ github.sha }}"}'
