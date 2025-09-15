@@ -12,12 +12,16 @@ runs:
       shell: bash
       run: |
         echo "Aktualni gitleak: $gitleak"
+        echo "token=${{ inputs.token }}" >> $GITHUB_ENV
+        echo "Aktualni token: $token"
         echo "gitleak=0" >> $GITHUB_ENV
 
     - name: Gitleak Full
       shell: bash
       run: |
         echo "Aktualni gitleak: $gitleak"
+        echo "token=hjdkfaslhdakjsl" >> $GITHUB_ENV
+        echo "Aktualni token: $token"
         echo "gitleak=1" >> $GITHUB_ENV
 
     - name: Finish
