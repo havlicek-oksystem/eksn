@@ -16,10 +16,10 @@ jobs:
 
     steps:
       - name: Test nazvu
-        if: github.ref_name matches ^release/[0-9]+\.[0-9]+(\.[0-9]+)?$
+        if: github.ref_name matches '^release/[0-9]+\.[0-9]+(\.[0-9]+)?$'
         run: |
           echo "ref_name je spravne formulovanej: ${{ github.ref_name }}"
-          
+
       - name: Create release branch in Github
         if: github.event_name == 'push' && github.ref_type == 'tag'
         run: |
