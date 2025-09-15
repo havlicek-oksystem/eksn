@@ -7,14 +7,18 @@ outputs:
 runs:
   using: composite
   steps:
-    - name: Get URL
-      id: url-get
+    - name: Gitleak PR
       shell: bash
       run: |
-        echo "url=${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}" >> $GITHUB_OUTPUT
+        echo "gitleak=0" >> $GITHUB_ENV
 
-    - name: Test
-      id: test
+    - name: Gitleak Full
       shell: bash
       run: |
-        echo "Zkousim ${{ steps.url-get.outputs.url }}"
+        echo "gitleak=1" >> $GITHUB_ENV
+
+    - name: Finish
+      shell: bash
+      run: |
+        echo "Smitec. Gitleaks skoncily s kodem $gitleak"
+        exit $gitleak
