@@ -16,7 +16,8 @@ jobs:
 
     steps:
       - name: Test nazvu
-        if: github.ref_name matches '^release/[0-9]+\.[0-9]+(\.[0-9]+)?$'
+        #if: github.ref_name matches '^release/[0-9]+\.[0-9]+(\.[0-9]+)?$'
+        if: startsWith(github.ref_name, '^release/[0-9]+\.[0-9]+(\.[0-9]+)?$')
         run: |
           echo "ref_name je spravne formulovanej: ${{ github.ref_name }}"
 
