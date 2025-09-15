@@ -28,5 +28,6 @@ runs:
       shell: bash
       run: |
         echo "Aktualni gitleak: $gitleak"
+        echo "Token na konci: $token"
         echo "Smitec. Gitleaks skoncily s kodem $gitleak"
         exit $gitleak
