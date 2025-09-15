@@ -1,24 +1,28 @@
 name: Get URL address of current Github Action run
 
-outputs:
-  url:
-    value: ${{ steps.url-get.outputs.url }}
+inputs:
+  token:
+    description: 'Github token'
 
 runs:
   using: composite
   steps:
+
     - name: Gitleak PR
       shell: bash
       run: |
+        echo "Aktualni gitleak: $gitleak"
         echo "gitleak=0" >> $GITHUB_ENV
 
     - name: Gitleak Full
       shell: bash
       run: |
+        echo "Aktualni gitleak: $gitleak"
         echo "gitleak=1" >> $GITHUB_ENV
 
     - name: Finish
       shell: bash
       run: |
+        echo "Aktualni gitleak: $gitleak"
         echo "Smitec. Gitleaks skoncily s kodem $gitleak"
         exit $gitleak
