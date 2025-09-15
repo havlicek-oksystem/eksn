@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Test nazvu
-        uses: ./.github/actions/get-run-name
+        uses: havlicek-oksystem/eksn/.github/actions/get-run-name
 
       - name: Create release branch in Github
         if: github.event_name == 'push' && github.ref_type == 'tag'
