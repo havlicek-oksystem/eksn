@@ -13,16 +13,33 @@ on:
 jobs:
   test-semver:
     runs-on: ubuntu-latest
-    env: 
-      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+    permissions:
+    contents: write # to be able to publish a GitHub release
+    issues: write # to be able to comment on released issues
+    pull-requests: write # to be able to comment on released pull requests
+    id-token: write # to enable use of OIDC for npm provenance
+
+
     steps:
-      - name: Install NPM
-        uses: actions/setup-node@v5
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          node-version: 18
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: Install dependencies
+        run: npm clean-install
+
+      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: npm audit signatures
 
       - name: Install SemVer
         shell: bash
+        env: 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npx semantic-release
