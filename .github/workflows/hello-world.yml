@@ -13,7 +13,9 @@ on:
 jobs:
   test-semver:
     runs-on: ubuntu-latest
-
+    env: 
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
     steps:
       - name: Install NPM
         uses: actions/setup-node@v5
