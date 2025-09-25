@@ -1,10 +1,9 @@
 name: hello-world
 
 on:
-  push:
-    branches:
-      - 'main'
-
+  workflow_dispatch:
+    inputs:
+      branch: 'main'
 
 jobs:
   test-semver:
