@@ -3,16 +3,22 @@ name: hello-world
 on:
   workflow_dispatch:
     inputs:
-      branch: 'main'
+      input:
+        type: choice
+        options:
+        - success
+        - fail
 
 jobs:
-  test-semver:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Set up JDK 21
-        uses: actions/setup-java@v4
-        if: ${{ github.event_name == 'schedule' || github.event_name == 'push' }} && github.ref == 'refs/heads/main'
-        with:
-          java-version: "21"
-          distribution: "corretto"
+      - name: Test
+        shell: bash
+        run: |
+          if [[ ${{ inputs.input }} == "success" ]]; then
+            exit 0
+          else
+            exit 1
+          fi
