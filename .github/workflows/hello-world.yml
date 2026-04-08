@@ -18,7 +18,7 @@ jobs:
         id: test
         shell: bash
         run: |
-          echo "var1=integration" >> $GITHUB_OUTPUT
+          echo "var1=verification" >> $GITHUB_OUTPUT
 
       - name: Test2
         shell: bash
