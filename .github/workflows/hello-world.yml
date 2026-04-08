@@ -22,7 +22,7 @@ jobs:
 
       - name: Test2
         env:
-          variable: ${{ steps.test.outputs.var1 == 'cement' || 'pisek' }}
+          variable: ${{ steps.test.outputs.var1 == 'malta' || 'pisek' }}
         shell: bash
         run: |
           echo "Stavi se z: ${{ env.variable }}"
