@@ -21,8 +21,7 @@ jobs:
           echo "var1=cement" >> $GITHUB_OUTPUT
 
       - name: Test2
-        env:
-          variable: ${{ steps.test.outputs.var1 == 'malta' || 'pisek' }}
         shell: bash
+        continue-on-error: ${{ steps.test.outputs.var1 == cement }}
         run: |
-          echo "Stavi se z: ${{ env.variable }}"
+          echo "TENTO STEP PROBIHA"
