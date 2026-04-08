@@ -18,12 +18,12 @@ jobs:
         id: test
         shell: bash
         run: |
-          echo "var1=hlina" >> $GITHUB_OUTPUT
+          echo "var1=integration" >> $GITHUB_OUTPUT
 
       - name: Test2
         shell: bash
-        continue-on-error: ${{ steps.test.outputs.var1 == 'hlina' }}
+        continue-on-error: ${{ steps.test.outputs.var1 == 'integration' }}
         run: |
-          echo "Continue-on-error je: ${{ steps.test.outputs.var1 == 'hlina' }}"
+          echo "Continue-on-error je: ${{ steps.test.outputs.var1 == 'integration' }}"
           curl kravina; echo
           echo "TENTO STEP PROBIHA"
