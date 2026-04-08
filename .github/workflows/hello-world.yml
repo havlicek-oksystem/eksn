@@ -22,6 +22,6 @@ jobs:
 
       - name: Test2
         shell: bash
-        continue-on-error: ${{ steps.test.outputs.var1 == cement }}
+        continue-on-error: ${{ steps.test.outputs.var1 == 'cement' }}
         run: |
           echo "TENTO STEP PROBIHA"
