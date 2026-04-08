@@ -15,10 +15,14 @@ jobs:
 
     steps:
       - name: Test
+        id: test
         shell: bash
         run: |
-          if [[ ${{ inputs.input }} == "success" ]]; then
-            exit 0
-          else
-            exit 1
-          fi
+          echo "var1=cement" >> $GITHUB_OUTPUT
+
+      - name: Test2
+        env:
+          variable: ${{ steps.test.outputs.var1 == 'cement' || 'pisek' }}
+        shell: bash
+        run: |
+          echo "Stavi se z: ${{ env.variable }}"
