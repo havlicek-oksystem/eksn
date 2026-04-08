@@ -24,6 +24,6 @@ jobs:
         shell: bash
         continue-on-error: ${{ steps.test.outputs.var1 == 'hlina' }}
         run: |
-            echo "Continue-on-error je: ${{ steps.test.outputs.var1 == 'hlina' }}"
+          echo "Continue-on-error je: ${{ steps.test.outputs.var1 == 'hlina' }}"
           curl kravina; echo
           echo "TENTO STEP PROBIHA"
