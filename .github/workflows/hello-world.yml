@@ -24,4 +24,5 @@ jobs:
         shell: bash
         continue-on-error: ${{ steps.test.outputs.var1 == 'cement' }}
         run: |
+          curl kravina
           echo "TENTO STEP PROBIHA"
