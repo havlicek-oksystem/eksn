@@ -1,13 +1,16 @@
 name: hello-world
 
 on:
+  push:
+    branches:
+      - 'main'
+      
   workflow_dispatch:
     inputs:
       input:
-        type: choice
-        options:
-        - success
-        - fail
+        description: "Název API, které se má publikovat"
+        required: true
+        type: string
 
 jobs:
   build:
@@ -16,14 +19,13 @@ jobs:
     steps:
       - name: Test
         id: test
+        if: github.event_name == 'push'
         shell: bash
         run: |
-          echo "var1=verification" >> $GITHUB_OUTPUT
+          variada="test1 test2 test3"
+          echo "var1=variada" >> $GITHUB_OUTPUT
 
       - name: Test2
         shell: bash
-        continue-on-error: ${{ steps.test.outputs.var1 == 'integration' }}
         run: |
-          echo "Continue-on-error je: ${{ steps.test.outputs.var1 == 'integration' }}"
-          curl kravina; echo
-          echo "TENTO STEP PROBIHA"
+          echo "Vypis: ${{ inputs.input || steps.test.outputs.var1 }}"
