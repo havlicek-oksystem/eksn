@@ -23,7 +23,7 @@ jobs:
         shell: bash
         run: |
           variada="test1 test2 test3"
-          echo "var1=variada" >> $GITHUB_OUTPUT
+          echo "var1=$variada" >> $GITHUB_OUTPUT
 
       - name: Test2
         shell: bash
