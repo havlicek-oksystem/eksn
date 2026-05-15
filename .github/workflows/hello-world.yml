@@ -29,3 +29,4 @@ jobs:
         shell: bash
         run: |
           echo "Vypis: ${{ inputs.input || steps.test.outputs.var1 }}"
+          echo "haha"
