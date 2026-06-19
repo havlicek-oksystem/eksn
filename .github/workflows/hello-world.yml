@@ -33,5 +33,4 @@ jobs:
 
       - name: test
         shell: bash
-        working-directory: test
-        run: ./test.sh
+        run: ./test/test.sh
