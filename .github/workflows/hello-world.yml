@@ -30,3 +30,7 @@ jobs:
         run: |
           echo "Vypis: ${{ inputs.input || steps.test.outputs.var1 }}"
           echo "haha"
+
+      - name: test
+        shell: bash
+        run: test.sh
