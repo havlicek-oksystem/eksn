@@ -31,7 +31,8 @@ jobs:
           echo "Vypis: ${{ inputs.input || steps.test.outputs.var1 }}"
           echo "haha"
 
+      - uses: actions/checkout@v7
+
       - name: test
         shell: bash
-        working-directory: ${{ github.workspace }}/test
-        run: ./test.sh
+        run: ./test/test.sh
