@@ -17,22 +17,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test
-        id: test
-        if: github.event_name == 'push'
-        shell: bash
-        run: |
-          variada="test1 test2 test3"
-          echo "var1=$variada" >> $GITHUB_OUTPUT
+      - uses: actions/checkout@v7
 
       - name: Test2
         shell: bash
         run: |
-          echo "Vypis: ${{ inputs.input || steps.test.outputs.var1 }}"
-          echo "haha"
-
-      - uses: actions/checkout@v7
-
-      - name: test
-        shell: bash
-        run: test/test.sh
+          echo "::notice title=API url::$(grep location headers | awk '{print $2}')"
