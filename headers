@@ -1,0 +1,6 @@
+HTTP/2 201
+alt-svc: h3=":443"; ma=2592000
+date: Thu, 06 Aug 2026 11:46:10 GMT
+location: www.seznam.cz
+server: Caddy
+content-length: 0
