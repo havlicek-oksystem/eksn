@@ -23,3 +23,4 @@ jobs:
         shell: bash
         run: |
           echo "::notice title=API url::$(grep location headers | awk '{print $2}')"
+
